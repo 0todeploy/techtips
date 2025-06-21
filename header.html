@@ -19,17 +19,16 @@
   </nav>
 
   <!-- Search Bar -->
-  <form action="https://www.google.com/search" method="GET" target="_blank" class="header-search" autocomplete="off">
-    <input 
-      type="text" 
-      name="q" 
-      placeholder="Search Tech Tips…" 
-      required 
-      class="header-search-input"
-    />
-    <input type="hidden" name="sitesearch" value="techtips.0todeploy.com" />
-    <button type="submit" class="header-search-btn">
-      <i class="fas fa-search"></i>
-    </button>
-  </form>
+  <form id="site-search-form" class="header-search" autocomplete="off" onsubmit="return siteSearch(event)">
+  <input 
+    type="text" 
+    id="site-search-input"
+    placeholder="Search Tech Tips…" 
+    required 
+    class="header-search-input"
+  />
+  <button type="submit" class="header-search-btn">
+    <i class="fas fa-search"></i>
+  </button>
+</form>
 </header>
