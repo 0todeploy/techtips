@@ -9,13 +9,20 @@
   <meta name="description" content="Explore practical tech tips, Raspberry Pi hacks, DigiSpark tutorials, and ethical hacking tools. Learn and build with techtips.0todeploy.com." />
   <meta name="keywords" content="Tech tips, Raspberry Pi, DigiSpark, ESP8266, tutorials, ethical hacking, coding, 0todeploy" />
   <meta name="author" content="0todeploy" />
+  <!-- SEC Meta -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="https://0todeploy.com/images/logo.svg" />
+   <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://0todeploy.com/css/styles.css" />
-  <script src="https://0todeploy.com/js/include.js" defer></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+</head>
+<body>
+
+  <!-- Load Header -->
+  <div data-include="header.html"></div>
 </head>
 <body>
   <div data-include="header.html"></div>
@@ -25,6 +32,16 @@
     <p>Your go-to hub for Raspberry Pi, ESP8266, DigiSpark, and ethical hacking tutorials. Stay tuned for exciting content!</p>
   </main>
 
+  <!-- Load Footer -->
   <div data-include="footer.html"></div>
+
+  <!-- JS Libraries -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity="sha384-wziAfh6b/qT+3LrqebF9WeK4+J5sehS6FA10J1t3a866kJ/fvU5UwofWnQyzLtwu" crossorigin="anonymous"></script>
+  <script>
+    AOS.init({ once: true });
+  </script>
+  <script src="js/include.js"></script>
+  <script src="js/main.js"></script>
+
 </body>
 </html>
