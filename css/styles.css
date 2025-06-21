@@ -323,3 +323,36 @@ textarea:focus {
     color: #cccccc;
   }
 }
+
+.header-search {
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+}
+
+.header-search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  border: 1px solid #444;
+  background: #1f1f1f;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.header-search-btn {
+  padding: 0.5rem 1rem;
+  background: #ff6b00;
+  color: #0f0f0f;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-search-btn:hover,
+.header-search-btn:focus {
+  background: #ff8515;
+  outline: 2px dashed #ff6b00;
+}

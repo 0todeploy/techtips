@@ -10,8 +10,6 @@
     <i class="fas fa-bars"></i>
   </button>
 
-  
-  </a>
   <nav class="main-nav">
     <a href="https://0todeploy.com">Home</a>
     <a href="https://0todeploy.com/about.html">About</a>
@@ -19,4 +17,19 @@
     <a href="https://0todeploy.com/contact.html">Contact</a>
     <a href="https://techtips.0todeploy.com">Tech-Tips</a>
   </nav>
+
+  <!-- Search Bar -->
+  <form action="https://www.google.com/search" method="GET" target="_blank" class="header-search" autocomplete="off">
+    <input 
+      type="text" 
+      name="q" 
+      placeholder="Search Tech Tips…" 
+      required 
+      class="header-search-input"
+    />
+    <input type="hidden" name="sitesearch" value="techtips.0todeploy.com" />
+    <button type="submit" class="header-search-btn">
+      <i class="fas fa-search"></i>
+    </button>
+  </form>
 </header>
