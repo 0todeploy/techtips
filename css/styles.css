@@ -420,3 +420,15 @@ textarea:focus {
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0); }
 }
+
+/* Ensure icons in sound and airplane buttons inherit color properly */
+.sound-toggle i,
+.airplane-btn i {
+  color: #ff6b00;
+  transition: color 0.3s ease;
+}
+
+.sound-toggle:hover i,
+.airplane-btn:hover i {
+  color: #ffffff;
+}

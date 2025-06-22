@@ -9,11 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (toggleBtn && nav) {
       toggleBtn.addEventListener("click", () => {
         nav.classList.toggle("nav-visible");
+        playSound("sounds/menuopen.mp3");
       });
 
       nav.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
           nav.classList.remove("nav-visible");
+          playSound("sounds/menuclose.mp3");
         });
       });
     }
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const query = searchInput.value.trim();
         if (query.length === 0) return false;
+        playSound("sounds/typing.mp3");
         const url = "https://www.google.com/search?q=site:techtips.0todeploy.com+" + encodeURIComponent(query);
         window.open(url, "_blank");
         return false;
@@ -54,14 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       updateSoundIcon();
     }
-  // Airplane button sound + scroll to top
-   const planeBtn = document.querySelector(".airplane-btn");
-   if (planeBtn) {
-     planeBtn.addEventListener("click", () => {
-       playSound("sounds/planepass.mp3");
-       window.scrollTo({ top: 0, behavior: "smooth" });
-     });
-}
 
     // Ask for permission only on first visit
     if (soundState === null) {
@@ -80,6 +75,41 @@ document.addEventListener("DOMContentLoaded", () => {
       audio.play().catch(() => {});
     };
     // ---- END Sound Toggle ----
+
+    // ---- Airplane Button Handler (after footer loads) ----
+    setTimeout(() => {
+      const planeBtn = document.querySelector(".airplane-btn");
+      if (planeBtn) {
+        planeBtn.addEventListener("click", () => {
+          playSound("sounds/planepass.mp3");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    }, 500);
+    // ---- END Airplane ----
+
+    // ---- Clipboard Copy Sound ----
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        playSound("sounds/copy.mp3");
+      });
+    });
+
+    // ---- Error Trigger Sound ----
+    document.querySelectorAll(".error-trigger").forEach(el => {
+      el.addEventListener("click", () => {
+        playSound("sounds/error.mp3");
+      });
+    });
+
+    // ---- Easter Egg Sound ----
+    const easterTrigger = document.getElementById("secret-logo");
+    if (easterTrigger) {
+      easterTrigger.addEventListener("click", () => {
+        playSound("sounds/reveal.mp3");
+        alert("🎉 You found the hidden secret!");
+      });
+    }
 
   }, 150);
 });
