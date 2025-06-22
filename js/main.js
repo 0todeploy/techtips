@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Terminal Game Easter Egg Trigger
+    // Terminal Game Easter Egg Trigger - HARD MODE
     const terminal = document.getElementById("terminal-easter");
     const terminalOverlay = document.getElementById("terminal-overlay");
     const terminalCode = document.getElementById("terminal-code");
@@ -127,21 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalError = document.getElementById("terminal-error");
     const secretLogo = document.getElementById("secret-logo");
 
-    function generateCode() {
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-      let code = "";
-      for (let i = 0; i < 4; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return code;
-    }
+    const puzzles = [
+      { q: "XOR: 5 ⊕ 3", a: "6" },
+      { q: "Binary of 13", a: "1101" },
+      { q: "What is 7 ⊕ 4", a: "3" },
+      { q: "Binary of 9", a: "1001" },
+      { q: "Decimal of 1110", a: "14" }
+    ];
 
-    let currentCode = "";
+    let currentAnswer = null;
+    let wrongTries = 0;
 
     if (secretLogo) {
       secretLogo.addEventListener("click", () => {
-        currentCode = generateCode();
-        terminalCode.textContent = currentCode;
+        const puzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
+        terminalCode.textContent = puzzle.q;
+        currentAnswer = puzzle.a;
+        wrongTries = 0;
         terminalInput.value = "";
         terminalError.style.display = "none";
         terminal.classList.add("terminal-active");
@@ -153,8 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (terminalSubmit) {
       terminalSubmit.addEventListener("click", () => {
-        const entered = terminalInput.value.trim().toUpperCase();
-        if (entered === currentCode) {
+        const entered = terminalInput.value.trim();
+        if (entered === currentAnswer) {
           playSound("sounds/reveal.mp3");
           terminal.classList.remove("terminal-active");
           terminalOverlay.classList.remove("terminal-active");
@@ -162,10 +164,24 @@ document.addEventListener("DOMContentLoaded", () => {
             window.open("https://t.me/+XSUerZTU7gYzYjk1", "_blank");
           }, 500);
         } else {
+          wrongTries++;
           playSound("sounds/error.mp3");
           terminalError.style.display = "block";
+          terminalError.textContent = `Access Denied (${wrongTries}/3)`;
           terminalInput.value = "";
           terminalInput.focus();
+
+          if (wrongTries >= 3) {
+            terminalError.textContent = "LOCKED. Try again in 10 seconds.";
+            terminalSubmit.disabled = true;
+            terminalInput.disabled = true;
+            setTimeout(() => {
+              terminalError.style.display = "none";
+              terminalSubmit.disabled = false;
+              terminalInput.disabled = false;
+              wrongTries = 0;
+            }, 10000);
+          }
         }
       });
     }
