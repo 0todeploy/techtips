@@ -118,29 +118,46 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Terminal Game Puzzle Challenge
+    // Terminal Game Puzzle Challenge (Full terminal style)
     const secretLogo = document.getElementById("secret-logo");
-    const base64Set = [
-      { encoded: btoa("unlockEasterEgg()"), answer: "unlockEasterEgg()" },
-      { encoded: btoa("consoleAccess"), answer: "consoleAccess" },
-      { encoded: btoa("burntBeastPower"), answer: "burntBeastPower" }
-    ];
+    const terminal = document.getElementById("terminal-easter");
+    const terminalOverlay = document.getElementById("terminal-overlay");
+    const terminalCode = document.getElementById("terminal-code");
+    const terminalInput = document.getElementById("terminal-input");
+    const terminalSubmit = document.getElementById("terminal-submit");
+    const terminalError = document.getElementById("terminal-error");
+
+    const base64Puzzle = btoa("unlockEasterEgg()");
 
     if (secretLogo) {
       secretLogo.addEventListener("click", () => {
-        const challenge = base64Set[Math.floor(Math.random() * base64Set.length)];
-        const input = prompt(`Terminal Puzzle: Decode Base64 → ${challenge.encoded}`);
-        if (input && input.trim() === challenge.answer) {
-          playSound("sounds/reveal.mp3");
-          alert("✅ Decrypted! Use this code:");
-          console.log("%cUSE THIS IN CONSOLE TO UNLOCK:", "color:#0f0;font-weight:bold");
-          console.log("\n> unlockEasterEgg();");
-        } else {
-          playSound("sounds/error.mp3");
-          alert("❌ Wrong code. Try again.");
-        }
+        terminalCode.textContent = `Decode Base64 → ${base64Puzzle}`;
+        terminalInput.value = "";
+        terminalError.style.display = "none";
+        terminal.classList.add("terminal-active");
+        terminalOverlay.classList.add("terminal-active");
+        playSound("sounds/typing.mp3");
+        terminalInput.focus();
       });
     }
+
+    terminalSubmit.addEventListener("click", () => {
+      const entered = terminalInput.value.trim();
+      if (entered === "unlockEasterEgg()") {
+        playSound("sounds/reveal.mp3");
+        terminalError.style.display = "none";
+        terminal.classList.remove("terminal-active");
+        terminalOverlay.classList.remove("terminal-active");
+        console.log("%cUSE THIS IN CONSOLE TO UNLOCK:", "color:#0f0;font-weight:bold");
+        console.log("\n> unlockEasterEgg();");
+      } else {
+        playSound("sounds/error.mp3");
+        terminalError.style.display = "block";
+        terminalError.textContent = "Access Denied. Try Again.";
+        terminalInput.value = "";
+        terminalInput.focus();
+      }
+    });
 
     window.unlockEasterEgg = () => {
       console.log("✅ Access Granted via Developer Console");
