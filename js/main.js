@@ -33,5 +33,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // ---- END Site Search ----
 
+    // ---- Sound Toggle Logic ----
+    const soundToggle = document.getElementById("soundToggle");
+    const soundState = localStorage.getItem("soundEnabled");
+    let soundEnabled = soundState === "true";
+
+    const updateSoundIcon = () => {
+      if (soundToggle) {
+        soundToggle.innerHTML = soundEnabled
+          ? '<i class="fas fa-volume-up"></i>'
+          : '<i class="fas fa-volume-mute"></i>';
+      }
+    };
+
+    if (soundToggle) {
+      soundToggle.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem("soundEnabled", soundEnabled);
+        updateSoundIcon();
+      });
+      updateSoundIcon();
+    }
+  // Airplane button sound + scroll to top
+   const planeBtn = document.querySelector(".airplane-btn");
+   if (planeBtn) {
+     planeBtn.addEventListener("click", () => {
+       playSound("sounds/planepass.mp3");
+       window.scrollTo({ top: 0, behavior: "smooth" });
+     });
+}
+
+    // Ask for permission only on first visit
+    if (soundState === null) {
+      setTimeout(() => {
+        const allow = confirm("Do you want to enable sound effects on this site?");
+        localStorage.setItem("soundEnabled", allow);
+        soundEnabled = allow;
+        updateSoundIcon();
+      }, 500);
+    }
+
+    // Global sound play function
+    window.playSound = (src) => {
+      if (!soundEnabled) return;
+      const audio = new Audio(src);
+      audio.play().catch(() => {});
+    };
+    // ---- END Sound Toggle ----
+
   }, 150);
 });

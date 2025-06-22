@@ -372,3 +372,51 @@ textarea:focus {
     color: #cccccc;
   }
 }
+
+/* Sound Toggle Button */
+.sound-toggle {
+  background: none;
+  border: none;
+  color: #ff6b00;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.sound-toggle:hover,
+.sound-toggle:focus {
+  color: #ffffff;
+  outline: 2px dashed #ff6b00;
+}
+
+/* Responsive Sound Toggle Placement */
+@media (max-width: 768px) {
+  .sound-toggle {
+    margin-top: 0.5rem;
+    align-self: center;
+  }
+}
+/* Airplane Button */
+.airplane-wrapper {
+  margin-top: 1.5rem;
+}
+
+.airplane-btn {
+  background: none;
+  border: none;
+  color: #ff6b00;
+  font-size: 2rem;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+.airplane-btn:hover {
+  color: #ffffff;
+}
+
+@keyframes pulse {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
