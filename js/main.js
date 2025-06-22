@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Terminal Game Easter Egg Trigger - HARD MODE
+    // Terminal Game Easter Egg Trigger - EXTREME MODE
     const terminal = document.getElementById("terminal-easter");
     const terminalOverlay = document.getElementById("terminal-overlay");
     const terminalCode = document.getElementById("terminal-code");
@@ -127,12 +127,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalError = document.getElementById("terminal-error");
     const secretLogo = document.getElementById("secret-logo");
 
+    // Hard encrypted challenges
     const puzzles = [
-      { q: "XOR: 5 ⊕ 3", a: "6" },
-      { q: "Binary of 13", a: "1101" },
-      { q: "What is 7 ⊕ 4", a: "3" },
-      { q: "Binary of 9", a: "1001" },
-      { q: "Decimal of 1110", a: "14" }
+      { q: "Base64 decode: U3lzdGVt", a: "System" },
+      { q: "Hex to ASCII: 46 49 52 45", a: "FIRE" },
+      { q: "ROT13: Cnffjbeq", a: "Password" },
+      { q: "Binary to Char: 01000011 01001111 01000100 01000101", a: "CODE" },
+      { q: "XOR Key = 42, 75 ⊕ ? = 103", a: "M" }
     ];
 
     let currentAnswer = null;
@@ -156,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (terminalSubmit) {
       terminalSubmit.addEventListener("click", () => {
         const entered = terminalInput.value.trim();
-        if (entered === currentAnswer) {
+        if (entered.toUpperCase() === currentAnswer.toUpperCase()) {
           playSound("sounds/reveal.mp3");
           terminal.classList.remove("terminal-active");
           terminalOverlay.classList.remove("terminal-active");
@@ -172,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
           terminalInput.focus();
 
           if (wrongTries >= 3) {
-            terminalError.textContent = "LOCKED. Try again in 10 seconds.";
+            terminalError.textContent = "LOCKED. Try again in 15 seconds.";
             terminalSubmit.disabled = true;
             terminalInput.disabled = true;
             setTimeout(() => {
@@ -180,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
               terminalSubmit.disabled = false;
               terminalInput.disabled = false;
               wrongTries = 0;
-            }, 10000);
+            }, 15000);
           }
         }
       });
