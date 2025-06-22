@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
       });
     }
-    // ---- END Site Search ----
 
     // ---- Sound Toggle Logic ----
     const soundToggle = document.getElementById("soundToggle");
@@ -74,19 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const audio = new Audio(src);
       audio.play().catch(() => {});
     };
-    // ---- END Sound Toggle ----
 
-    // ---- Airplane Button Handler (after footer loads) ----
+    // ---- Airplane Button Handler ----
     setTimeout(() => {
       const planeBtn = document.querySelector(".airplane-btn");
       if (planeBtn) {
         planeBtn.addEventListener("click", () => {
           playSound("sounds/planepass.mp3");
+          planeBtn.classList.add("fly-fast");
           window.scrollTo({ top: 0, behavior: "smooth" });
+          setTimeout(() => planeBtn.classList.remove("fly-fast"), 1000);
         });
       }
     }, 500);
-    // ---- END Airplane ----
 
     // ---- Clipboard Copy Sound ----
     document.querySelectorAll(".copy-btn").forEach(btn => {
@@ -102,12 +101,40 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // ---- Easter Egg Sound ----
+    // ---- Easter Egg Sound + Animation ----
     const easterTrigger = document.getElementById("secret-logo");
     if (easterTrigger) {
       easterTrigger.addEventListener("click", () => {
         playSound("sounds/reveal.mp3");
+        easterTrigger.classList.add("easter-flash");
+        setTimeout(() => easterTrigger.classList.remove("easter-flash"), 1000);
         alert("🎉 You found the hidden secret!");
+      });
+    }
+
+    // ---- Hover Sound ----
+    document.querySelectorAll(".hover-sound").forEach(el => {
+      el.addEventListener("mouseenter", () => {
+        playSound("sounds/hover.mp3");
+      });
+    });
+
+    // ---- Click Sound ----
+    document.querySelectorAll(".click-sound").forEach(el => {
+      el.addEventListener("click", () => {
+        playSound("sounds/click.mp3");
+      });
+    });
+
+    // ---- Logo Animation ----
+    const logo = document.querySelector(".logo");
+    if (logo) {
+      logo.classList.add("logo-pop");
+      logo.addEventListener("mouseenter", () => {
+        logo.classList.add("logo-glow");
+      });
+      logo.addEventListener("mouseleave", () => {
+        logo.classList.remove("logo-glow");
       });
     }
 

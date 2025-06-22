@@ -373,55 +373,7 @@ textarea:focus {
   }
 }
 
-/* Sound Toggle Button */
-.sound-toggle {
-  background: none;
-  border: none;
-  color: #ff6b00;
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin-left: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-.sound-toggle:hover,
-.sound-toggle:focus {
-  color: #ffffff;
-  outline: 2px dashed #ff6b00;
-}
-
-/* Responsive Sound Toggle Placement */
-@media (max-width: 768px) {
-  .sound-toggle {
-    margin-top: 0.5rem;
-    align-self: center;
-  }
-}
-/* Airplane Button */
-.airplane-wrapper {
-  margin-top: 1.5rem;
-}
-
-.airplane-btn {
-  background: none;
-  border: none;
-  color: #ff6b00;
-  font-size: 2rem;
-  cursor: pointer;
-  animation: pulse 2s infinite;
-}
-
-.airplane-btn:hover {
-  color: #ffffff;
-}
-
-@keyframes pulse {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
-/* Ensure icons in sound and airplane buttons inherit color properly */
+/* --- SOUND & ICON COLOR FIXES --- */
 .sound-toggle i,
 .airplane-btn i {
   color: #ff6b00;
@@ -431,4 +383,110 @@ textarea:focus {
 .sound-toggle:hover i,
 .airplane-btn:hover i {
   color: #ffffff;
+}
+
+/* --- RESPONSIVE SOUND BUTTON --- */
+@media (max-width: 768px) {
+  .sound-toggle {
+    margin-top: 0.5rem;
+    align-self: flex-end;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1001;
+  }
+}
+
+/* --- AIRPLANE ANIMATIONS --- */
+@keyframes pulse {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes flyaway {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+}
+
+.fly-fast {
+  animation: flyaway 1s ease-out forwards;
+}
+
+.airplane-btn {
+  background: none;
+  border: none;
+  color: #ff6b00;
+  font-size: 2rem;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+  position: relative;
+  overflow: visible;
+}
+
+.airplane-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 3px;
+  height: 18px;
+  background: rgba(255, 107, 0, 0.6);
+  transform: translateX(-50%);
+  border-radius: 2px;
+  animation: trail 0.8s infinite;
+}
+
+@keyframes trail {
+  0% { height: 18px; opacity: 0.8; }
+  50% { height: 12px; opacity: 0.3; }
+  100% { height: 18px; opacity: 0.8; }
+}
+
+/* --- LOGO ANIMATIONS --- */
+@keyframes logo-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.logo-pop {
+  animation: logo-pop 1s ease;
+}
+
+.logo-glow {
+  filter: drop-shadow(0 0 10px #ff6b00);
+  transition: filter 0.3s ease;
+}
+
+/* --- EASTER EGG EFFECTS --- */
+@keyframes flash-glow {
+  0%, 100% { filter: drop-shadow(0 0 0px #ff6b00); }
+  50% { filter: drop-shadow(0 0 12px #ff6b00); }
+}
+
+.easter-flash {
+  animation: flash-glow 1s ease-out;
+}
+
+@keyframes glitch {
+  0% { clip-path: inset(0 0 90% 0); transform: skew(0.5deg); }
+  25% { clip-path: inset(10% 0 75% 0); transform: skew(-1deg); }
+  50% { clip-path: inset(20% 0 50% 0); transform: skew(1deg); }
+  75% { clip-path: inset(0 0 20% 0); transform: skew(-0.5deg); }
+  100% { clip-path: inset(0 0 90% 0); transform: skew(0.5deg); }
+}
+
+.glitch {
+  animation: glitch 0.8s ease-in-out;
+}
+
+/* --- PAGE SOUND TRANSITION HELPER --- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-transition {
+  animation: fade-in 0.8s ease-in;
 }
