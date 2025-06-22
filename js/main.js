@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchForm = document.getElementById("site-search-form");
     const searchInput = document.getElementById("site-search-input");
     if (searchForm && searchInput) {
-      searchForm.addEventListener("submit", function(e) {
+      searchForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const query = searchInput.value.trim();
         if (query.length === 0) return false;
@@ -118,20 +118,32 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Terminal Game Puzzle Challenge (Full terminal style)
-    const secretLogo = document.getElementById("secret-logo");
+    // Terminal Game Easter Egg Trigger - EXTREME MODE
     const terminal = document.getElementById("terminal-easter");
     const terminalOverlay = document.getElementById("terminal-overlay");
     const terminalCode = document.getElementById("terminal-code");
     const terminalInput = document.getElementById("terminal-input");
     const terminalSubmit = document.getElementById("terminal-submit");
     const terminalError = document.getElementById("terminal-error");
+    const secretLogo = document.getElementById("secret-logo");
 
-    const base64Puzzle = btoa("unlockEasterEgg()");
+    const puzzles = [
+      { q: "Base64 decode: U3lzdGVt", a: "System" },
+      { q: "Hex to ASCII: 46 49 52 45", a: "FIRE" },
+      { q: "ROT13: Cnffjbeq", a: "Password" },
+      { q: "Binary to Char: 01000011 01001111 01000100 01000101", a: "CODE" },
+      { q: "XOR Key = 42, 75 ⊕ ? = 103", a: "M" }
+    ];
+
+    let currentAnswer = null;
+    let wrongTries = 0;
 
     if (secretLogo) {
       secretLogo.addEventListener("click", () => {
-        terminalCode.textContent = `Decode Base64 → ${base64Puzzle}`;
+        const puzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
+        terminalCode.textContent = puzzle.q;
+        currentAnswer = puzzle.a;
+        wrongTries = 0;
         terminalInput.value = "";
         terminalError.style.display = "none";
         terminal.classList.add("terminal-active");
@@ -141,30 +153,44 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    terminalSubmit.addEventListener("click", () => {
-      const entered = terminalInput.value.trim();
-      if (entered === "unlockEasterEgg()") {
-        playSound("sounds/reveal.mp3");
-        terminalError.style.display = "none";
-        terminal.classList.remove("terminal-active");
-        terminalOverlay.classList.remove("terminal-active");
-        console.log("%cUSE THIS IN CONSOLE TO UNLOCK:", "color:#0f0;font-weight:bold");
-        console.log("\n> unlockEasterEgg();");
-      } else {
-        playSound("sounds/error.mp3");
-        terminalError.style.display = "block";
-        terminalError.textContent = "Access Denied. Try Again.";
-        terminalInput.value = "";
-        terminalInput.focus();
-      }
-    });
+    if (terminalSubmit) {
+      terminalSubmit.addEventListener("click", () => {
+        const entered = terminalInput.value.trim();
+        if (entered.toUpperCase() === currentAnswer.toUpperCase()) {
+          playSound("sounds/reveal.mp3");
+          terminal.classList.remove("terminal-active");
+          terminalOverlay.classList.remove("terminal-active");
+          setTimeout(() => {
+            console.log("✅ Correct. Now paste this somewhere:");
+            console.log("unlockEasterEgg()");
+          }, 500);
+        } else {
+          wrongTries++;
+          playSound("sounds/error.mp3");
+          terminalError.style.display = "block";
+          terminalError.textContent = `Access Denied (${wrongTries}/3)`;
+          terminalInput.value = "";
+          terminalInput.focus();
+
+          if (wrongTries >= 3) {
+            terminalError.textContent = "LOCKED. Try again in 15 seconds.";
+            terminalSubmit.disabled = true;
+            terminalInput.disabled = true;
+            setTimeout(() => {
+              terminalError.style.display = "none";
+              terminalSubmit.disabled = false;
+              terminalInput.disabled = false;
+              wrongTries = 0;
+            }, 15000);
+          }
+        }
+      });
+    }
 
     window.unlockEasterEgg = () => {
-      console.log("✅ Access Granted via Developer Console");
+      console.log("🎉 Access Granted via Dev Console");
       playSound("sounds/reveal.mp3");
-      setTimeout(() => {
-        window.open("https://t.me/+XSUerZTU7gYzYjk1", "_blank");
-      }, 500);
+      window.open("https://t.me/+XSUerZTU7gYzYjk1", "_blank");
     };
 
   }, 150);
