@@ -57,6 +57,19 @@
   <!-- Load Footer -->
   <div data-include="footer.html"></div>
 
+  <!-- Terminal Overlay -->
+  <div id="terminal-overlay"></div>
+
+  <!-- Easter Egg Terminal Game -->
+  <div id="terminal-easter">
+    <h2>> SYSTEM ACCESS CHALLENGE</h2>
+    <p>> Decrypt this hash:</p>
+    <p><strong id="terminal-code">----</strong> <span class="blink">█</span></p>
+    <input type="text" id="terminal-input" maxlength="4" autocomplete="off" placeholder="Enter code..." />
+    <button id="terminal-submit">Unlock</button>
+    <div class="error" id="terminal-error" style="display:none;">Access Denied. Try Again.</div>
+  </div>
+    
   <!-- JS Libraries -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity="sha384-wziAfh6b/qT+3LrqebF9WeK4+J5sehS6FA10J1t3a866kJ/fvU5UwofWnQyzLtwu" crossorigin="anonymous"></script>
   <script>

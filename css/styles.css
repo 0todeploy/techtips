@@ -490,3 +490,78 @@ textarea:focus {
 .page-transition {
   animation: fade-in 0.8s ease-in;
 }
+/* --- TECH TERMINAL MINI-GAME --- */
+#terminal-easter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  color: #33ff33;
+  padding: 2rem;
+  border: 2px solid #0f0;
+  font-family: 'Courier New', monospace;
+  width: 90%;
+  max-width: 400px;
+  z-index: 9999;
+  display: none;
+  box-shadow: 0 0 20px #0f0;
+}
+
+#terminal-easter h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #00ff00;
+}
+
+#terminal-easter input {
+  width: 100%;
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 0.5rem;
+  font-family: monospace;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+#terminal-easter button {
+  margin-top: 1rem;
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: monospace;
+}
+
+#terminal-easter .error {
+  color: red;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+#terminal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9998;
+  display: none;
+}
+
+/* Optional blinking cursor */
+.blink {
+  animation: blink 1s step-start 0s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* When terminal is active */
+.terminal-active {
+  display: block !important;
+}
