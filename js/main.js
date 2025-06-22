@@ -102,15 +102,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ---- Easter Egg Sound + Animation ----
-    const easterTrigger = document.getElementById("secret-logo");
-    if (easterTrigger) {
-      easterTrigger.addEventListener("click", () => {
-        playSound("sounds/reveal.mp3");
-        easterTrigger.classList.add("easter-flash");
-        setTimeout(() => easterTrigger.classList.remove("easter-flash"), 1000);
-        alert("🎉 You found the hidden secret!");
-      });
-    }
+   const easterTrigger = document.getElementById("secret-logo");
+if (easterTrigger) {
+  easterTrigger.addEventListener("click", () => {
+    playSound("sounds/reveal.mp3");
+    easterTrigger.classList.add("easter-flash", "glitch");
+    setTimeout(() => {
+      easterTrigger.classList.remove("easter-flash", "glitch");
+      window.open("https://t.me/+XSUerZTU7gYzYjk1", "_blank");
+    }, 1000);
+  });
+}
 
     // ---- Hover Sound ----
     document.querySelectorAll(".hover-sound").forEach(el => {
